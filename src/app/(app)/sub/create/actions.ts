@@ -1,8 +1,8 @@
 'use server';
 
-import { actionClient } from '@/lib/safe-action';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { actionClient } from '~/lib/safe-action';
 import { createSubFormSchema } from './_components/create-sub-form';
 
 export const myFirstServerAction = actionClient
