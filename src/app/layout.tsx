@@ -1,4 +1,5 @@
 import { Header } from '@/components/common/header/header';
+import { Toaster } from '@/components/ui/sonner';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
@@ -30,6 +31,7 @@ export default function RootLayout({
       >
         <Header />
         <section className="pt-top grid">{children}</section>
+        <Toaster />
       </body>
     </html>
   );

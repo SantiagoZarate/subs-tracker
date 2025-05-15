@@ -1,5 +1,18 @@
+export const companies = [
+  'Spotify',
+  'Netflix',
+  'ChatGPT',
+  'Apple Music',
+  'YouTube Premium',
+  'Amazon Prime Video',
+  'Disney+',
+  'HBO Max',
+  'Adobe Creative Cloud',
+  'Microsoft 365',
+] as const;
+
 type SubscriptionService = {
-  name: string;
+  name: (typeof companies)[number];
   imageUrl: string;
 };
 

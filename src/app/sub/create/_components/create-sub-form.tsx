@@ -19,37 +19,47 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useAction } from 'next-safe-action/hooks';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import { z } from 'zod';
 import { myFirstServerAction } from '../actions';
-import { subscriptionServices } from '../constants';
+import { companies, subscriptionServices } from '../constants';
 
-const createSubForm = z.object({
+export const createSubFormSchema = z.object({
   name: z.string(),
-  service: z.string(),
-  price: z.coerce.number(),
+  service: z.enum(companies),
+  price: z.coerce.number().min(1),
 });
 
-export type CreateSubForm = z.infer<typeof createSubForm>;
+export type CreateSubForm = z.infer<typeof createSubFormSchema>;
 
 export function CreateSubForm() {
   const formState = useForm<CreateSubForm>({
-    resolver: zodResolver(createSubForm),
+    resolver: zodResolver(createSubFormSchema),
     defaultValues: {
       name: '',
       price: 0,
-      service: '',
+      service: 'ChatGPT',
     },
   });
 
-  const handleSubmit = (data: CreateSubForm) => {
-    myFirstServerAction(data);
-  };
+  const { execute, isExecuting } = useAction(myFirstServerAction, {
+    onSuccess() {
+      toast.success('Subscription added succesfully');
+    },
+    onError() {
+      toast.error('there was an error');
+    },
+  });
 
   return (
     <Form {...formState}>
-      <form action="" className="flex flex-col gap-8">
+      <form
+        onSubmit={formState.handleSubmit((data) => execute(data))}
+        className="flex flex-col gap-8"
+      >
         <FormField
           name="name"
           control={formState.control}
