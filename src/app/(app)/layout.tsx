@@ -30,7 +30,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} relative antialiased`}
       >
         <Header />
-        <section className="pt-top grid">{children}</section>
+        <section className="pt-top max-w-tablet mx-auto grid">
+          {children}
+        </section>
         <Toaster />
       </body>
     </html>
