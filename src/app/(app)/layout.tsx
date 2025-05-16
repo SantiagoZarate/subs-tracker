@@ -1,3 +1,4 @@
+import { Footer } from '@/components/common/footer/footer';
 import { Header } from '@/components/common/header/header';
 import { Toaster } from '@/components/ui/sonner';
 import type { Metadata } from 'next';
@@ -30,8 +31,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} relative antialiased`}
       >
         <Header />
-        <section className="max-w-tablet mx-auto grid pt-[calc(var(--spacing-top)_+_48px)] pb-12">
-          {children}
+        <section className="grid min-h-dvh grid-rows-[1fr_auto]">
+          <section className="max-w-tablet mx-auto grid pt-[calc(var(--spacing-top)_+_48px)] pb-12">
+            {children}
+          </section>
+          <Footer />
         </section>
         <Toaster />
       </body>
