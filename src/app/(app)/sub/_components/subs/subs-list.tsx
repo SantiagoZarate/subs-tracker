@@ -1,6 +1,9 @@
+import { Icon } from '@/components/ui/icon';
 import { subsService } from '~/services/subs.service';
 
 export async function SubsList() {
+  await new Promise((resolve) => setTimeout(() => resolve(true), 2000));
+
   const subs = await subsService.getAll();
 
   if (!subs.length) {
@@ -10,7 +13,10 @@ export async function SubsList() {
   return (
     <ul className="flex flex-col gap-2">
       {subs.map((sub) => (
-        <li key={sub.id}>{sub.name}</li>
+        <li key={sub.id} className="flex gap-2">
+          <Icon iconId="ChatGPT" />
+          <p>{sub.name}</p>
+        </li>
       ))}
     </ul>
   );

@@ -11,8 +11,10 @@ export const companies = [
   'Microsoft 365',
 ] as const;
 
+export type Companies = (typeof companies)[number];
+
 type SubscriptionService = {
-  name: (typeof companies)[number];
+  name: Companies;
   imageUrl: string;
 };
 
