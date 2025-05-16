@@ -7,7 +7,7 @@ export type TimeInterval = (typeof timeIntervals)[number];
 
 export const createSubFormSchema = z.object({
   name: z.string(),
-  service: z.enum(companies).nullable(),
+  service: z.enum(companies),
   price: z.coerce.number().min(1),
   startAt: z.date(),
   duration: z.coerce.number().min(1, 'Invalid duration'),

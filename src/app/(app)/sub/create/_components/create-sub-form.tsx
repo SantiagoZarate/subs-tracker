@@ -62,8 +62,8 @@ export function CreateSubForm({ companies }: Props) {
     resolver: zodResolver(createSubFormSchema),
     defaultValues: {
       name: '',
-      price: 0,
-      service: null,
+      price: undefined,
+      service: undefined,
       duration: 1,
       notifyWhenCloseToFinish: false,
       startAt: new Date(),
@@ -204,7 +204,7 @@ export function CreateSubForm({ companies }: Props) {
                     <SpriteIcon name={'DOLAR_SIGN'} />
                     Subscription Price
                   </FormLabel>
-                  <Input placeholder="example" type="number" {...field} />
+                  <Input placeholder="$20.00" type="number" {...field} />
                   <FormMessage />
                 </FormItem>
               )}
@@ -292,8 +292,7 @@ export function CreateSubForm({ companies }: Props) {
             </section>
             <FormDescription className="flex">
               <p className="pr-2">
-                Subscription ends in{' '}
-                {endSubscriptionDate.toLocaleDateString('es-ar')}
+                Subscription ends in {endSubscriptionDate.toLocaleDateString()}
               </p>
               <span className="pl-2">{daysLeft} Days left</span>
             </FormDescription>

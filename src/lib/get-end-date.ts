@@ -6,7 +6,6 @@ export function getEndDate(
   duration: number,
   interval: TimeInterval,
 ): Date {
-  console.log({ startAt });
   const normalizedStart = startOfDay(startAt); // resets to 00:00 without timezone ambiguity
 
   switch (interval) {
