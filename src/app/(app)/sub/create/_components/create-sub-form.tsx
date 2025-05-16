@@ -10,6 +10,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import { Icon } from '@/components/ui/icon';
 import { Input } from '@/components/ui/input';
 import {
   Select,
@@ -23,11 +24,15 @@ import { useAction } from 'next-safe-action/hooks';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
+import { CompanyDTO } from '~/common/dtos/company.dto';
 import { myFirstServerAction } from '../actions';
-import { subscriptionServices } from '../constants';
 import { createSubFormSchema, CreateSubFormSchema } from './form-schema';
 
-export function CreateSubForm() {
+interface Props {
+  companies: CompanyDTO[];
+}
+
+export function CreateSubForm({ companies }: Props) {
   const formState = useForm<CreateSubFormSchema>({
     resolver: zodResolver(createSubFormSchema),
     defaultValues: {
@@ -81,8 +86,11 @@ export function CreateSubForm() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {subscriptionServices.map((service) => (
-                    <SelectItem value={service.name}>{service.name}</SelectItem>
+                  {companies.map((service) => (
+                    <SelectItem value={service.name}>
+                      <Icon iconId={service.name} />
+                      {service.name}
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
