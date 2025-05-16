@@ -8,6 +8,9 @@ export const subscription = sqliteTable('subscription', {
   price: int('price').notNull(),
   startAt: text('start_at').notNull(),
   finishAt: text('finish_at').notNull(),
+  notifyWhenCloseToFinish: int('notify_when_close_to_finish', {
+    mode: 'boolean',
+  }).default(false),
   companyId: text('company_id')
     .references(() => company.id, { onDelete: 'cascade' })
     .notNull(),

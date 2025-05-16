@@ -27,13 +27,14 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { format } from 'date-fns';
+import { differenceInCalendarDays, format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
 import { useAction } from 'next-safe-action/hooks';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { CompanyDTO } from '~/common/dtos/company.dto';
+import { getEndDate } from '~/lib/get-end-date';
 import { cn } from '~/lib/utils';
 import { myFirstServerAction } from '../actions';
 import {
@@ -70,14 +71,18 @@ export function CreateSubForm({ companies }: Props) {
     },
   });
 
-  const handleSubmit = (data: CreateSubFormSchema) => {
-    execute(data);
-  };
+  const endSubscriptionDate = getEndDate(
+    formState.watch('startAt'),
+    formState.watch('duration'),
+    formState.watch('timeInterval'),
+  );
+
+  const daysLeft = differenceInCalendarDays(endSubscriptionDate, new Date());
 
   return (
     <Form {...formState}>
       <form
-        onSubmit={formState.handleSubmit(handleSubmit)}
+        onSubmit={formState.handleSubmit(execute)}
         className="flex flex-col gap-8"
       >
         <FormField
@@ -175,48 +180,60 @@ export function CreateSubForm({ companies }: Props) {
             </FormItem>
           )}
         />
-        <FormField
-          control={formState.control}
-          name="timeInterval"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a time interval" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {timeIntervals.map((time) => (
-                    <SelectItem value={time}>{time}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FormDescription>
-                You can manage email addresses in your{' '}
-                <Link href="/examples/forms">email settings</Link>.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          name="duration"
-          control={formState.control}
-          render={({ field }) => (
-            <FormItem className="flex flex-col gap-2">
-              <FormLabel>Subscription duration</FormLabel>
-              <Input placeholder="example" type="number" {...field} />
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <section className="grid grid-cols-2">
+          <FormField
+            control={formState.control}
+            name="timeInterval"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a time interval" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {timeIntervals.map((time) => (
+                      <SelectItem value={time}>{time}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormDescription>
+                  You can manage email addresses in your{' '}
+                  <Link href="/examples/forms">email settings</Link>.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            name="duration"
+            control={formState.control}
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-2">
+                <FormLabel>Subscription duration</FormLabel>
+                <Input placeholder="example" type="number" {...field} />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <footer className="col-span-2 flex items-center divide-x">
+            <p className="pr-2">
+              Subscription ends in{' '}
+              {endSubscriptionDate.toLocaleDateString('es-ar')}
+            </p>
+            <span className="pl-2">{daysLeft} Days left</span>
+          </footer>
+        </section>
         <FormField
           control={formState.control}
           name="notifyWhenCloseToFinish"
           render={({ field }) => (
-            <FormItem className="flex flex-row items-start space-y-0 space-x-3 rounded-md border p-4 shadow">
+            <FormItem className="flex flex-row items-center space-y-0 space-x-3 rounded-md border p-4 shadow">
               <FormControl>
                 <Checkbox
                   checked={field.value}

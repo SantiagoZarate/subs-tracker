@@ -8,15 +8,11 @@ import { createSubFormSchema } from './_components/form-schema';
 
 export const myFirstServerAction = actionClient
   .schema(createSubFormSchema)
-  .action(async ({ parsedInput: { name, price, service } }) => {
+  .action(async ({ parsedInput }) => {
     let newSubId: number;
 
     try {
-      const result = await subsService.create({
-        companyId: service,
-        name,
-        price,
-      });
+      const result = await subsService.create(parsedInput);
       newSubId = result;
     } catch (error) {
       console.error({ error });

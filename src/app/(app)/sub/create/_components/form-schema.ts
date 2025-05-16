@@ -3,6 +3,8 @@ import { companies } from '../constants';
 
 export const timeIntervals = ['day', 'week', 'month', 'year'] as const;
 
+export type TimeInterval = (typeof timeIntervals)[number];
+
 export const createSubFormSchema = z.object({
   name: z.string(),
   service: z.enum(companies),
