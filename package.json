@@ -11,7 +11,8 @@
     "db:preview": "NODE_ENV=development drizzle-kit studio",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "NODE_ENV=development drizzle-kit migrate",
-    "db:migrate:prod": "drizzle-kit migrate"
+    "db:migrate:prod": "drizzle-kit migrate",
+    "icon:build": "svgsprite --src ./public/svgs --dest ./public/sprite"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
@@ -51,6 +52,7 @@
     "eslint-plugin-prettier": "5.4.0",
     "prettier": "3.5.3",
     "prettier-plugin-tailwindcss": "0.6.11",
+    "react-svg-sprite-generator": "1.0.38",
     "tailwindcss": "^4",
     "tsx": "4.19.4",
     "tw-animate-css": "^1.2.9",

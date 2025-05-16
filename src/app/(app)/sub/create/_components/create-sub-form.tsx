@@ -1,5 +1,6 @@
 'use client';
 
+import { SpriteIcon } from '@/components/sprite-icon/sprite-icon';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -101,7 +102,10 @@ export function CreateSubForm({ companies }: Props) {
           name="service"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel className="flex items-center gap-2">
+                <SpriteIcon name={'CIRCLE_BADGE'} />
+                Companies
+              </FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
@@ -130,7 +134,10 @@ export function CreateSubForm({ companies }: Props) {
           control={formState.control}
           render={({ field }) => (
             <FormItem className="flex flex-col gap-2">
-              <FormLabel>Subscription Price</FormLabel>
+              <FormLabel>
+                <SpriteIcon name={'DOLAR_SIGN'} />
+                Subscription Price
+              </FormLabel>
               <Input placeholder="example" type="number" {...field} />
               <FormMessage />
             </FormItem>

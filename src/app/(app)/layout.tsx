@@ -30,7 +30,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} relative antialiased`}
       >
         <Header />
-        <section className="pt-top max-w-tablet mx-auto grid pb-12">
+        <section className="max-w-tablet mx-auto grid pt-[calc(var(--spacing-top)_+_48px)] pb-12">
           {children}
         </section>
         <Toaster />
