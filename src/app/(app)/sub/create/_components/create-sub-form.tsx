@@ -23,20 +23,12 @@ import { useAction } from 'next-safe-action/hooks';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
-import { z } from 'zod';
 import { myFirstServerAction } from '../actions';
-import { companies, subscriptionServices } from '../constants';
-
-export const createSubFormSchema = z.object({
-  name: z.string(),
-  service: z.enum(companies),
-  price: z.coerce.number().min(1),
-});
-
-export type CreateSubForm = z.infer<typeof createSubFormSchema>;
+import { subscriptionServices } from '../constants';
+import { createSubFormSchema, CreateSubFormSchema } from './form-schema';
 
 export function CreateSubForm() {
-  const formState = useForm<CreateSubForm>({
+  const formState = useForm<CreateSubFormSchema>({
     resolver: zodResolver(createSubFormSchema),
     defaultValues: {
       name: '',
@@ -49,15 +41,20 @@ export function CreateSubForm() {
     onSuccess() {
       toast.success('Subscription added succesfully');
     },
-    onError() {
+    onError({ error }) {
+      console.log({ error });
       toast.error('there was an error');
     },
   });
 
+  const handleSubmit = (data: CreateSubFormSchema) => {
+    execute(data);
+  };
+
   return (
     <Form {...formState}>
       <form
-        onSubmit={formState.handleSubmit((data) => execute(data))}
+        onSubmit={formState.handleSubmit(handleSubmit)}
         className="flex flex-col gap-8"
       >
         <FormField

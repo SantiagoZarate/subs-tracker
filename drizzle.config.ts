@@ -1,6 +1,6 @@
-import { dbCredentials } from '@/config/get-db-credentials';
 import 'dotenv/config';
 import { defineConfig } from 'drizzle-kit';
+import { dbCredentials } from '~/config/get-db-credentials';
 
 export default defineConfig({
   out: './drizzle',

@@ -14,7 +14,7 @@ export async function SubsList() {
     <ul className="flex flex-col gap-2">
       {subs.map((sub) => (
         <li key={sub.id} className="flex gap-2">
-          <Icon iconId="ChatGPT" />
+          <Icon iconId={sub.company.name} />
           <p>{sub.name}</p>
         </li>
       ))}

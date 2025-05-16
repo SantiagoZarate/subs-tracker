@@ -1,3 +1,4 @@
+import { SubscriptionInsert } from '~/db/types/sub.type';
 import { SubsRepository } from '~/repository/subs.repository';
 
 class SubsService {
@@ -5,6 +6,11 @@ class SubsService {
 
   async getAll() {
     const data = await this.subsRepository.getAll();
+    return data;
+  }
+
+  async create(payload: SubscriptionInsert) {
+    const data = await this.subsRepository.create(payload);
     return data;
   }
 }

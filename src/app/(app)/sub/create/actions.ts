@@ -3,14 +3,27 @@
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { actionClient } from '~/lib/safe-action';
-import { createSubFormSchema } from './_components/create-sub-form';
+import { subsService } from '~/services/subs.service';
+import { createSubFormSchema } from './_components/form-schema';
 
 export const myFirstServerAction = actionClient
   .schema(createSubFormSchema)
-  .action(async ({ clientInput }) => {
-    throw new Error('LOL');
-    console.log({ clientInput });
+  .action(async ({ parsedInput: { name, price, service } }) => {
+    let newSubId: number;
+
+    try {
+      const result = await subsService.create({
+        companyId: service,
+        name,
+        price,
+      });
+      newSubId = result;
+    } catch (error) {
+      console.error({ error });
+      throw new Error('Failed to create subscription');
+    }
 
     revalidatePath('/sub', 'page');
     redirect('/sub');
+    return newSubId;
   });
