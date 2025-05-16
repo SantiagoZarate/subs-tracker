@@ -6,6 +6,8 @@ export const subscription = sqliteTable('subscription', {
   id: int('id').primaryKey({ autoIncrement: true }),
   name: text('name').notNull(),
   price: int('price').notNull(),
+  startAt: text('start_at').notNull(),
+  finishAt: text('finish_at').notNull(),
   companyId: text('company_id')
     .references(() => company.id, { onDelete: 'cascade' })
     .notNull(),
