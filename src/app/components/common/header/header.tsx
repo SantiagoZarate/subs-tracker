@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { GithubProviderButton } from './github-provider-button';
 
 type Link = {
   href: string;
@@ -23,13 +24,16 @@ export function Header() {
         <div>
           <Link href="/">Sub Tracker</Link>
         </div>
-        <nav className="flex">
-          {links.map((link) => (
-            <Link className="px-2" key={link.value} href={link.href}>
-              {link.value}
-            </Link>
-          ))}
-        </nav>
+        <section className="flex items-center gap-8">
+          <nav className="flex">
+            {links.map((link) => (
+              <Link className="px-2" key={link.value} href={link.href}>
+                {link.value}
+              </Link>
+            ))}
+          </nav>
+          <GithubProviderButton />
+        </section>
       </div>
     </header>
   );
