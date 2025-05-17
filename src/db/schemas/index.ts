@@ -1,6 +1,6 @@
+import { account, session, user, verification } from './auth.schema';
 import { company, companyRelations } from './company.schema';
 import { subscription, subscriptionRelations } from './subscription.schema';
-import { user } from './user.schema';
 
 export const schema = {
   subscription,
@@ -8,4 +8,7 @@ export const schema = {
   company,
   companyRelations,
   subscriptionRelations,
+  account,
+  session,
+  verification,
 };
