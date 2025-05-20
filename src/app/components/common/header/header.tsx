@@ -2,6 +2,7 @@ import { headers } from 'next/headers';
 import Link from 'next/link';
 import { auth } from '~/lib/auth';
 import { GithubProviderButton } from './github-provider-button';
+import { UserInfo } from './user-info';
 
 type Link = {
   href: string;
@@ -39,9 +40,7 @@ export async function Header() {
             ))}
           </nav>
           {currentSession?.user ? (
-            <>
-              <p>{currentSession.user.name}</p>
-            </>
+            <UserInfo name={currentSession.user.name} />
           ) : (
             <GithubProviderButton />
           )}
