@@ -1,5 +1,6 @@
 import { relations } from 'drizzle-orm';
 import { int, sqliteTable, text } from 'drizzle-orm/sqlite-core';
+import { user } from './auth.schema';
 import { company } from './company.schema';
 
 export const subscription = sqliteTable('subscription', {
@@ -14,11 +15,18 @@ export const subscription = sqliteTable('subscription', {
   companyId: text('company_id')
     .references(() => company.id, { onDelete: 'cascade' })
     .notNull(),
+  userId: text('user_id')
+    .references(() => user.id, { onDelete: 'cascade' })
+    .notNull(),
 });
 
 export const subscriptionRelations = relations(subscription, ({ one }) => ({
   company: one(company, {
     fields: [subscription.companyId],
     references: [company.id],
+  }),
+  user: one(user, {
+    fields: [subscription.userId],
+    references: [user.id],
   }),
 }));

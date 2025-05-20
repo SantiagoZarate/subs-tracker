@@ -1,4 +1,6 @@
+import { headers } from 'next/headers';
 import Link from 'next/link';
+import { auth } from '~/lib/auth';
 import { GithubProviderButton } from './github-provider-button';
 
 type Link = {
@@ -17,7 +19,11 @@ const links: Link[] = [
   },
 ];
 
-export function Header() {
+export async function Header() {
+  const currentSession = await auth.api.getSession({
+    headers: await headers(),
+  });
+
   return (
     <header className="fixed top-0 w-full border border-b backdrop-blur-md">
       <div className="max-w-tablet mx-auto flex w-full justify-between py-4">
@@ -32,7 +38,13 @@ export function Header() {
               </Link>
             ))}
           </nav>
-          <GithubProviderButton />
+          {currentSession?.user ? (
+            <>
+              <p>{currentSession.user.name}</p>
+            </>
+          ) : (
+            <GithubProviderButton />
+          )}
         </section>
       </div>
     </header>

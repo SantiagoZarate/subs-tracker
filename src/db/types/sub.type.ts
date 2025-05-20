@@ -11,4 +11,5 @@ export type SubscriptionInsert = Pick<
   | 'finishAt'
   | 'startAt'
   | 'notifyWhenCloseToFinish'
+  | 'userId'
 >;

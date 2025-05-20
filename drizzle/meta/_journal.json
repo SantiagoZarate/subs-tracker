@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "6",
-      "when": 1747333498608,
-      "tag": "0000_awesome_mac_gargan",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "6",
-      "when": 1747360601278,
-      "tag": "0001_purple_piledriver",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "6",
-      "when": 1747396870374,
-      "tag": "0002_sad_sugar_man",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "6",
-      "when": 1747450729783,
-      "tag": "0003_lying_the_hood",
+      "when": 1747711023031,
+      "tag": "0000_dear_mother_askani",
       "breakpoints": true
     }
   ]

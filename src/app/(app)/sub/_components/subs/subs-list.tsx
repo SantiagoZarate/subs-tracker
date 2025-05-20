@@ -6,7 +6,7 @@ import { subsService } from '~/services/subs.service';
 export async function SubsList() {
   await new Promise((resolve) => setTimeout(() => resolve(true), 2000));
 
-  const subs = await subsService.getAll();
+  const subs = await subsService.getAllMySubs();
 
   if (!subs.length) {
     return <div>There are no subs yet!</div>;
