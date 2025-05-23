@@ -9,6 +9,14 @@ import { getEndDate } from '~/lib/get-end-date';
 import { formatMoney } from '~/lib/money-formatter';
 import { CreateSubFormSchema } from './form-schema';
 
+const hexToRgba = (hex: string, alpha: number) => {
+  const bigint = parseInt(hex.replace('#', ''), 16);
+  const r = (bigint >> 16) & 255;
+  const g = (bigint >> 8) & 255;
+  const b = bigint & 255;
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+};
+
 export function SubCard() {
   const form = useFormContext<CreateSubFormSchema>();
 
@@ -26,12 +34,13 @@ export function SubCard() {
   const daysToFinish = differenceInDays(finishAt, startAt);
 
   const companyColor = service && companyColors[service];
+  const lowerOpacityShadowColor = hexToRgba(companyColor, 0.3); // 30% opacity
 
   return (
     <div
       style={
         {
-          boxShadow: `0 4px 6px -10px var(--company), 0 2px 4px -2px var(--company)`,
+          boxShadow: `0 4px 6px -10px var(--company), 0 2px 4px -2px var(--company), 0 30px 40px -10px ${lowerOpacityShadowColor}`,
           '--company': companyColor,
         } as React.CSSProperties
       }

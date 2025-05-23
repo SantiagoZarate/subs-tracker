@@ -1,7 +1,7 @@
+import { Button } from '@/components/ui/button';
 import { headers } from 'next/headers';
 import Link from 'next/link';
 import { auth } from '~/lib/auth';
-import { GithubProviderButton } from './github-provider-button';
 import { UserInfo } from './user-info';
 
 type Link = {
@@ -27,7 +27,7 @@ export async function Header() {
 
   return (
     <header className="fixed top-0 w-full border border-b backdrop-blur-md">
-      <div className="max-w-tablet mx-auto flex w-full justify-between py-4">
+      <div className="max-w-tablet mx-auto flex w-full items-center justify-between py-4">
         <div>
           <Link href="/">Sub Tracker</Link>
         </div>
@@ -42,7 +42,9 @@ export async function Header() {
           {currentSession?.user ? (
             <UserInfo name={currentSession.user.name} />
           ) : (
-            <GithubProviderButton />
+            <Link href="/login">
+              <Button>Sign in</Button>
+            </Link>
           )}
         </section>
       </div>

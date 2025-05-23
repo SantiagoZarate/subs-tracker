@@ -10,5 +10,5 @@ export function GithubProviderButton() {
     });
   };
 
-  return <Button onClick={handleClick}>Github</Button>;
+  return <Button onClick={handleClick}>Login with Github</Button>;
 }
